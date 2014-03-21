@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:animateLayoutChanges="true"
+    tools:context="com.bearbusdriver.SetupFragment">
+
+    <ImageView
+        android:id="@+id/grizz"
+        android:layout_marginTop="50dip"
+        android:layout_width="200dip"
+        android:layout_height="200dip"
+        android:scaleType="centerInside"
+        android:src="@drawable/grizz"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/loadingIndicator"
+        android:layout_below="@id/grizz"
+        android:layout_marginTop="24dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="8dip" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="8dip" />
+
+    </RelativeLayout>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_below="@id/grizz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/go_button"
+        android:layout_below="@id/spinner"
+        android:layout_width="175dip"
+        android:layout_height="50dip"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dip"
+        android:text="GO"
+        android:textColor="@android:color/black"
+        android:background="@drawable/rounded_button"
+        android:visibility="gone"/>
+
+</RelativeLayout>

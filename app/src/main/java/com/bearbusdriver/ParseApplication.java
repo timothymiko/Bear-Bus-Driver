@@ -6,6 +6,8 @@ import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
+
 /**
  * Created by timothymiko on 3/19/14.
  */
@@ -13,8 +15,12 @@ import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
 
-    private final String PARSE_APP_ID = "Hr5DPwQzhmzzST1sNzME8ssu3zaDxRZgtLO10Zxk";
-    private final String PARSE_CLIENT_KEY = "49AgCaNyWzaFFCgHFPgS3NK0lEjTpLNPDDYBrswX";
+    public static final String PARSE_APP_ID = "Hr5DPwQzhmzzST1sNzME8ssu3zaDxRZgtLO10Zxk";
+    public static final String PARSE_CLIENT_KEY = "49AgCaNyWzaFFCgHFPgS3NK0lEjTpLNPDDYBrswX";
+
+    public static String CURRENT_BUS_ID;
+
+    public static ArrayList<Bus> activeBusLines;
 
     @Override
     public void onCreate() {
@@ -31,5 +37,7 @@ public class ParseApplication extends Application {
         defaultACL.setPublicReadAccess(true);
 
         ParseACL.setDefaultACL(defaultACL, true);
+
+        activeBusLines = new ArrayList<Bus>();
     }
 }
