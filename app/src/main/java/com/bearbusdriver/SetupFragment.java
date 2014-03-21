@@ -2,6 +2,7 @@ package com.bearbusdriver;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -35,6 +37,8 @@ public class SetupFragment extends Fragment {
     private ArrayAdapter<String> adapter;
     private Button goButton;
 
+    private int runCount;
+
     public static SetupFragment newInstance(String param1) {
         SetupFragment fragment = new SetupFragment();
         Bundle args = new Bundle();
@@ -54,6 +58,25 @@ public class SetupFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        if (!ParseApplication.haveInternet(getActivity())) {
+            final Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    runCount++;
+                    if (!ParseApplication.haveInternet(getActivity())) {
+                        if (runCount > 4) {
+                            Toast.makeText(getActivity(), "No Internet. Quiting Application.", Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
+                        } else {
+                            Toast.makeText(getActivity(), "No Internet. Retrying...", Toast.LENGTH_SHORT).show();
+                            handler.postDelayed(this, 5000);
+                        }
+                    }
+                }
+            });
+        }
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Bus");
         query.findInBackground(new FindCallback<ParseObject>() {

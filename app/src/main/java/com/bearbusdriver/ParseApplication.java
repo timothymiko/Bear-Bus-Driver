@@ -1,6 +1,9 @@
 package com.bearbusdriver;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -39,5 +42,21 @@ public class ParseApplication extends Application {
         ParseACL.setDefaultACL(defaultACL, true);
 
         activeBusLines = new ArrayList<Bus>();
+    }
+
+    public static boolean haveInternet(Context ctx) {
+
+        NetworkInfo info = (NetworkInfo) ((ConnectivityManager) ctx
+                .getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+
+        if (info == null || !info.isConnected()) {
+            return false;
+        }
+        if (info.isRoaming()) {
+            // here is the roaming option you can change it if you want to
+            // disable internet while roaming, just return false
+            return false;
+        }
+        return true;
     }
 }
