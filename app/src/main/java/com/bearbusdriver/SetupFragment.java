@@ -4,10 +4,11 @@ package com.bearbusdriver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -38,6 +39,8 @@ public class SetupFragment extends Fragment {
     private Button goButton;
 
     private int runCount;
+
+    private int selectedBusLine;
 
     public static SetupFragment newInstance(String param1) {
         SetupFragment fragment = new SetupFragment();
@@ -83,20 +86,18 @@ public class SetupFragment extends Fragment {
 
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
-                Log.d("test", "callback!");
                 if (e == null) {
                     Bus bus;
                     ParseObject object;
                     ParseGeoPoint geoPoint;
                     spinnerTitles = new String[parseObjects.size()];
-                    Log.d("test", "Parse Objects Size: " + parseObjects.size());
                     for (int i = 0; i < parseObjects.size(); i++) {
 
                         bus = new Bus();
                         object = parseObjects.get(i);
                         geoPoint = object.getParseGeoPoint("location");
 
-                        bus.id = object.getString("objectId");
+                        bus.id = object.getObjectId();
                         bus.name = object.getString("name");
                         if (geoPoint != null) {
                             bus.latitude = geoPoint.getLatitude();
@@ -128,8 +129,29 @@ public class SetupFragment extends Fragment {
         mRoot = inflater.inflate(R.layout.fragment_setup, container, false);
 
         spinner = (Spinner) mRoot.findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedBusLine = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         goButton = (Button) mRoot.findViewById(R.id.go_button);
+        goButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+                transaction.remove(SetupFragment.this);
+                transaction.add(R.id.container, MainFragment.newInstance(selectedBusLine), MainFragment.TAG);
+                transaction.commit();
+            }
+        });
 
         return mRoot;
     }
