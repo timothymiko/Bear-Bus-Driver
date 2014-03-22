@@ -20,7 +20,6 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -109,7 +108,6 @@ public class SetupFragment extends Fragment {
                         spinnerTitles[i] = object.getString("name");
                     }
 
-                    Arrays.sort(spinnerTitles);
                     adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerTitles);
                     spinner.setAdapter(adapter);
                     mRoot.findViewById(R.id.loadingIndicator).setVisibility(View.GONE);
