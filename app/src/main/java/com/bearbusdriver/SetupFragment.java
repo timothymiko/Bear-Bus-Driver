@@ -118,6 +118,29 @@ public class SetupFragment extends Fragment {
                 }
             }
         });
+
+        ParseQuery<ParseObject> stopQuery = ParseQuery.getQuery("BusStop");
+        stopQuery.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+                if (e == null) {
+                    BusStop bus;
+                    ParseObject object;
+                    ParseGeoPoint location;
+
+                    for (int i = 0; i < parseObjects.size(); i++) {
+
+                        object = parseObjects.get(i);
+                        location = object.getParseGeoPoint("location");
+
+                        bus = new BusStop(object.getObjectId(), object.getString("stopName"), location.getLatitude(), location.getLongitude());
+
+                        ParseApplication.stops.put(bus.id, bus);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -143,6 +166,8 @@ public class SetupFragment extends Fragment {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ParseApplication.CURRENT_BUS_ID = ParseApplication.activeBusLines.get(selectedBusLine).id;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 transaction.remove(SetupFragment.this);
@@ -153,6 +178,4 @@ public class SetupFragment extends Fragment {
 
         return mRoot;
     }
-
-
 }

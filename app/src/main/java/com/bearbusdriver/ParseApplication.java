@@ -10,6 +10,7 @@ import com.parse.ParseACL;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by timothymiko on 3/19/14.
@@ -21,9 +22,11 @@ public class ParseApplication extends Application {
     public static final String PARSE_APP_ID = "Hr5DPwQzhmzzST1sNzME8ssu3zaDxRZgtLO10Zxk";
     public static final String PARSE_CLIENT_KEY = "49AgCaNyWzaFFCgHFPgS3NK0lEjTpLNPDDYBrswX";
 
-    public static String CURRENT_BUS_ID;
+    public static String CURRENT_BUS_ID = "";
 
     public static ArrayList<Bus> activeBusLines;
+
+    public static HashMap<String, BusStop> stops;
 
     @Override
     public void onCreate() {
@@ -38,10 +41,13 @@ public class ParseApplication extends Application {
 
         // If you would like all objects to be private by default, remove this line.
         defaultACL.setPublicReadAccess(true);
+        defaultACL.setPublicWriteAccess(true);
 
         ParseACL.setDefaultACL(defaultACL, true);
 
         activeBusLines = new ArrayList<Bus>();
+        stops = new HashMap<String, BusStop>();
+
     }
 
     public static boolean haveInternet(Context ctx) {

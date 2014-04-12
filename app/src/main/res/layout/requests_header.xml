@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/holo_blue_light">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="24dip">
+
+        <ImageView
+            android:id="@+id/status_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dip"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/status_image"
+            android:layout_margin="4dip"
+            android:layout_centerHorizontal="true"
+            android:text="@string/gps"
+            android:textSize="16sp"
+            android:textColor="@color/seconday_text_light_gray" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/next_stop_title"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="4dip"
+        android:text="@string/next_stop"
+        android:textColor="@color/seconday_text_light_gray"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/next_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dip"
+        android:maxWidth="250dip"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/next_stop_title"
+        android:gravity="center_horizontal|bottom"
+        android:textColor="@android:color/white"
+        android:layout_weight="1"
+        android:ellipsize="none"
+        android:maxLines="100"
+        android:scrollHorizontally="false"
+        android:textSize="30sp"
+        android:text="O'rena" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="8dip">
+
+        <TextView
+            android:id="@+id/num_of_students_waiting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal|bottom"
+            android:text="12"
+            android:textSize="36sp"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="75dip"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/num_of_students_waiting"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="@string/students_waiting"
+            android:textSize="12sp"
+            android:textColor="@color/seconday_text_light_gray"
+            android:layout_weight="1"
+            android:ellipsize="none"
+            android:maxLines="100"
+            android:scrollHorizontally="false" />
+    </RelativeLayout>
+</RelativeLayout>
